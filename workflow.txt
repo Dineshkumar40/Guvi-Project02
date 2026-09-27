@@ -1,3 +1,37 @@
+--> create a EC2 to execute all these
+--> then from there clone the repo
+--> intall terraform 
+--> cd Infra 
+--> terraform fmt , validate , plan
+--> terraform apply --auto-approve
+
+--> after ssh into terraform EC2
+--> from there login into jenkins
+--> navigate to manager --> plugins and install email notification plugin
+--> naviagte to manager -> credentials -> global
+--> add credentials --> username password cred type
+--> 1st for github with PAT
+--> 2nd for Docker with PAT
+--> 3rd for email with App password
+
+--> gitHub repo --> setting --> enable webhook
+--> https://<your-jenkins-server-url>/github-webhook/ here last "/" is mandatory
+
+--> manager -> system Extended E-mail notification
+--> smtp.gmail.com 
+--> click SSL
+--> SSL port 465
+
+--> Dashboard --> new item
+--> give name and create Multibranch pipeline 
+--> in source select github and repo URL
+--> in source pipeline give Jenkinsfile for pipeline code
+--> apply and save
+--> then build start 
+--> view console output log 
+--> you will receive an email notification 
+
+
 GitHub
    ↓
 Jenkins Multibranch Pipeline
