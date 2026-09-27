@@ -1,0 +1,38 @@
+Developer
+   ↓ git push
+GitHub
+   ↓ Webhook
+Jenkins
+   ↓
+Checkout
+   ↓
+Docker Build
+   ↓
+DockerHub Login
+   ↓
+Docker Push
+   ↓
+sed → replace IMAGE_PLACEHOLDER with dineshkumar40/trend-app:latest
+   ↓
+kubectl apply deployment.yaml
+   ↓
+kubectl apply service.yaml
+   ↓
+Wait for rollout
+   ↓
+Get AWS Load Balancer URL
+   ↓
+Email notification
+
+The traffic will be:
+Internet
+   ↓
+AWS Load Balancer :3000
+   ↓
+Kubernetes Service :3000
+   ↓
+Trend Pod :80
+   ↓
+Nginx
+   ↓
+React App
