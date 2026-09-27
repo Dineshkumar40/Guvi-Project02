@@ -142,6 +142,62 @@ pipeline {
                 }
             }
         }
+        // 10. INSTALL MONITORING
+        stage('Install Monitoring') {
+            steps {
+                sh '''
+                    echo "=========================================="
+                    echo "Installing Prometheus + Grafana"
+                    echo "=========================================="
+
+                    echo "Adding Prometheus Community Helm repository..."
+
+                    helm repo add prometheus-community \
+                    https://prometheus-community.github.io/helm-charts
+
+                    helm repo update
+
+                    echo "Installing/Upgrading kube-prometheus-stack..."
+
+                    helm upgrade --install monitoring \
+                    prometheus-community/kube-prometheus-stack \
+                    --namespace monitoring \
+                    --create-namespace \
+                    -f monitoring-values.yaml \
+                    --wait \
+                    --timeout 10m
+
+                    echo "Monitoring installation completed."
+
+                    echo ""
+                    echo "Monitoring Pods:"
+                    kubectl get pods -n monitoring
+
+                    echo ""
+                    echo "Monitoring Services:"
+                    kubectl get svc -n monitoring
+                '''
+            }
+        }
+        stage('Get Grafana URL') {
+            steps{
+                script{
+                    echo "=========================================="
+                    echo "Getting Grafana URL"
+                    echo "=========================================="
+                    env.GRAFANA_URL = sh(
+                        script: '''
+                            kubectl get service monitoring-grafana \
+                              -n monitoring \
+                              -o jsonpath='http://{.status.loadBalancer.ingress[0].hostname}:3000'
+                        ''',
+                        returnStdout: true
+                    ).trim()
+                    echo "Grafana URL: ${env.GRAFANA_URL}"
+                }
+            }
+        }
+
     }
 
     // POST ACTIONS
@@ -152,6 +208,7 @@ pipeline {
             echo 'Trend Application Deployed Successfully!'
             echo '=========================================='
             echo "Application URL: ${env.APP_URL}"
+            echo "Grafana URL: ${env.GRAFANA_URL}"
             emailext(
                 subject: "SUCCESS: Trend Deployment - Build #${BUILD_NUMBER}",
                 body: """
@@ -162,6 +219,8 @@ pipeline {
                     EKS Cluster:${EKS_CLUSTER}
                     AWS Region:${AWS_REGION}
                     Application URL:${env.APP_URL}
+                    Grafana URL: ${env.GRAFANA_URL}
+                    Grafana Username: admin
                     Jenkins Job:${JOB_NAME}
                     Build URL:${BUILD_URL}
                     Status:SUCCESS

@@ -1,8 +1,6 @@
-Developer
-   ↓ git push
 GitHub
-   ↓ Webhook
-Jenkins
+   ↓
+Jenkins Multibranch Pipeline
    ↓
 Checkout
    ↓
@@ -10,29 +8,29 @@ Docker Build
    ↓
 DockerHub Login
    ↓
-Docker Push
+Push Docker Image
    ↓
-sed → replace IMAGE_PLACEHOLDER with dineshkumar40/trend-app:latest
+Configure EKS
    ↓
-kubectl apply deployment.yaml
+Inject Docker Image into Kubernetes YAML
    ↓
-kubectl apply service.yaml
+Deploy Trend App
    ↓
-Wait for rollout
+Wait for Pods
    ↓
-Get AWS Load Balancer URL
+Get Application URL
    ↓
-Email notification
-
-The traffic will be:
-Internet
+Helm
    ↓
-AWS Load Balancer :3000
+kube-prometheus-stack
+   ├── Prometheus
+   ├── Grafana
+   ├── Alertmanager
+   ├── Node Exporter
+   └── kube-state-metrics
    ↓
-Kubernetes Service :3000
+Get Grafana URL
    ↓
-Trend Pod :80
-   ↓
-Nginx
-   ↓
-React App
+Email
+   ├── Application URL
+   └── Grafana URL
