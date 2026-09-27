@@ -1,0 +1,528 @@
+Push event to branch main
+Connecting to https://api.github.com using Dineshkumar40/****** (github-creds)
+Obtained Jenkinsfile from 0fe7363cedcba313fc2125486843a3b8050bbb00
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/trend-app-multibranch_main
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential github-creds
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/trend-app-multibranch_main/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Dineshkumar40/Guvi-Project02.git # timeout=10
+Fetching without tags
+Fetching upstream changes from https://github.com/Dineshkumar40/Guvi-Project02.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+using GIT_ASKPASS to set credentials github-creds
+ > git fetch --no-tags --force --progress -- https://github.com/Dineshkumar40/Guvi-Project02.git +refs/heads/main:refs/remotes/origin/main # timeout=10
+Checking out Revision 0fe7363cedcba313fc2125486843a3b8050bbb00 (main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 0fe7363cedcba313fc2125486843a3b8050bbb00 # timeout=10
+Commit message: "monitorinig addes"
+ > git rev-list --no-walk b7d2a0fa9c396755863487558b1f68f10119c078 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_CREDENTIALS or $DOCKER_CREDENTIALS_PSW
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential github-creds
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/trend-app-multibranch_main/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Dineshkumar40/Guvi-Project02.git # timeout=10
+Fetching without tags
+Fetching upstream changes from https://github.com/Dineshkumar40/Guvi-Project02.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+using GIT_ASKPASS to set credentials github-creds
+ > git fetch --no-tags --force --progress -- https://github.com/Dineshkumar40/Guvi-Project02.git +refs/heads/main:refs/remotes/origin/main # timeout=10
+Checking out Revision 0fe7363cedcba313fc2125486843a3b8050bbb00 (main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 0fe7363cedcba313fc2125486843a3b8050bbb00 # timeout=10
+Commit message: "monitorinig addes"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Docker Image)
+[Pipeline] sh
++ echo ==========================================
+==========================================
++ echo Building Docker Image
+Building Docker Image
++ echo ==========================================
+==========================================
++ docker build -t dineshkumar40/trend-app:2 -t dineshkumar40/trend-app:latest .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 135B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/nginx:alpine
+#2 DONE 1.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 3.87kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/library/nginx:alpine@sha256:df221db836e1754089190208cee7eeda94f233197056426eda74a43ab1abeac2
+#5 resolve docker.io/library/nginx:alpine@sha256:df221db836e1754089190208cee7eeda94f233197056426eda74a43ab1abeac2 0.0s done
+#5 DONE 0.0s
+
+#6 [2/2] COPY dist/ /usr/share/nginx/html/
+#6 CACHED
+
+#7 exporting to image
+#7 exporting layers done
+#7 exporting manifest sha256:a3d0e788da76d755acf2b4560d80f6e092974217bd05c888557b6e2395e9acad done
+#7 exporting config sha256:1c058d826c2e9cb0353bfa8aa5d719c876a6adf63028bba1d5b18da30b19fc4d done
+#7 exporting attestation manifest sha256:a6edbbfadc24f1a5bebf961156af6d6c7b2c6dfb5bebbaf8588417fa587cebd5 0.0s done
+#7 exporting manifest list sha256:9de412044aef871aad5161b5ed2caa9b29c7d70b409d0027c0f09eafbdbe06c8
+#7 exporting manifest list sha256:9de412044aef871aad5161b5ed2caa9b29c7d70b409d0027c0f09eafbdbe06c8 0.0s done
+#7 naming to docker.io/dineshkumar40/trend-app:2 done
+#7 unpacking to docker.io/dineshkumar40/trend-app:2 0.0s done
+#7 naming to docker.io/dineshkumar40/trend-app:latest done
+#7 unpacking to docker.io/dineshkumar40/trend-app:latest 0.0s done
+#7 DONE 0.2s
++ echo Docker image built successfully
+Docker image built successfully
++ docker images
++ grep trend-app
+dineshkumar40/trend-app:1        bdd425f1c4d2        112MB         35.3MB        
+dineshkumar40/trend-app:2        9de412044aef        112MB         35.3MB        
+dineshkumar40/trend-app:latest   9de412044aef        112MB         35.3MB        
+trend-app:latest                 3df7ff06e94b        112MB         35.3MB        
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (DockerHub Login)
+[Pipeline] sh
++ echo ****
++ docker login -u dineshkumar40 --password-stdin
+
+WARNING! Your credentials are stored unencrypted in '/var/lib/jenkins/.docker/config.json'.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/go/credential-store/
+
+Login Succeeded
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Docker Image)
+[Pipeline] sh
++ echo ==========================================
+==========================================
++ echo Pushing Docker Image
+Pushing Docker Image
++ echo ==========================================
+==========================================
++ docker push dineshkumar40/trend-app:2
+The push refers to repository [docker.io/dineshkumar40/trend-app]
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+e2de96513ba9: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+e2de96513ba9: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+6c53d0b2a666: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Layer already exists
+e2de96513ba9: Waiting
+e2de96513ba9: Waiting
+6c53d0b2a666: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+9a9a644fdd6a: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Already exists
+745dfb2690dd: Waiting
+e2de96513ba9: Waiting
+6c53d0b2a666: Waiting
+831b5393c9d4: Waiting
+745dfb2690dd: Waiting
+e2de96513ba9: Waiting
+6c53d0b2a666: Waiting
+9a9a644fdd6a: Waiting
+e76228b47809: Waiting
+75d81b31493e: Waiting
+831b5393c9d4: Waiting
+64c8194480fe: Waiting
+745dfb2690dd: Layer already exists
+e2de96513ba9: Layer already exists
+6c53d0b2a666: Layer already exists
+e72112c14215: Waiting
+9a9a644fdd6a: Layer already exists
+e72112c14215: Waiting
+e76228b47809: Waiting
+75d81b31493e: Waiting
+64c8194480fe: Waiting
+e76228b47809: Layer already exists
+75d81b31493e: Layer already exists
+64c8194480fe: Layer already exists
+e72112c14215: Layer already exists
+831b5393c9d4: Pushed
+2: digest: sha256:9de412044aef871aad5161b5ed2caa9b29c7d70b409d0027c0f09eafbdbe06c8 size: 856
++ docker push dineshkumar40/trend-app:latest
+The push refers to repository [docker.io/dineshkumar40/trend-app]
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+831b5393c9d4: Waiting
+44136fa355b3: Already exists
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+6c53d0b2a666: Waiting
+745dfb2690dd: Waiting
+6c53d0b2a666: Waiting
+745dfb2690dd: Waiting
+831b5393c9d4: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Waiting
+831b5393c9d4: Already exists
+9a9a644fdd6a: Waiting
+d9aae54b5831: Waiting
+e2de96513ba9: Layer already exists
+6c53d0b2a666: Waiting
+745dfb2690dd: Waiting
+64c8194480fe: Waiting
+64c8194480fe: Waiting
+9a9a644fdd6a: Waiting
+d9aae54b5831: Waiting
+6c53d0b2a666: Waiting
+745dfb2690dd: Waiting
+6c53d0b2a666: Layer already exists
+745dfb2690dd: Layer already exists
+64c8194480fe: Waiting
+75d81b31493e: Waiting
+e76228b47809: Waiting
+9a9a644fdd6a: Layer already exists
+d9aae54b5831: Layer already exists
+e72112c14215: Waiting
+e72112c14215: Waiting
+64c8194480fe: Layer already exists
+75d81b31493e: Waiting
+e76228b47809: Waiting
+e72112c14215: Layer already exists
+75d81b31493e: Layer already exists
+e76228b47809: Layer already exists
+latest: digest: sha256:9de412044aef871aad5161b5ed2caa9b29c7d70b409d0027c0f09eafbdbe06c8 size: 856
++ echo Docker image pushed successfully
+Docker image pushed successfully
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Configure EKS)
+[Pipeline] sh
++ echo ==========================================
+==========================================
++ echo Configuring EKS
+Configuring EKS
++ echo ==========================================
+==========================================
++ aws eks update-kubeconfig --region ap-south-1 --name trend-eks
+Updated context arn:aws:eks:ap-south-1:591127499922:cluster/trend-eks in /var/lib/jenkins/.kube/config
++ echo Current Kubernetes context:
+Current Kubernetes context:
++ kubectl config current-context
+arn:aws:eks:ap-south-1:591127499922:cluster/trend-eks
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Update Kubernetes Image)
+[Pipeline] sh
++ echo ==========================================
+==========================================
++ echo Updating Kubernetes Deployment Image
+Updating Kubernetes Deployment Image
++ echo ==========================================
+==========================================
++ echo Before sed:
+Before sed:
++ grep image: deployment.yaml
+          image: IMAGE_PLACEHOLDER
++ sed -i s|image: IMAGE_PLACEHOLDER|image: dineshkumar40/trend-app:2|g deployment.yaml
++ echo After sed:
+After sed:
++ grep image: deployment.yaml
+          image: dineshkumar40/trend-app:2
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy to EKS)
+[Pipeline] sh
++ echo ==========================================
+==========================================
++ echo Deploying to EKS
+Deploying to EKS
++ echo ==========================================
+==========================================
++ kubectl apply -f deployment.yaml
+deployment.apps/trend-app configured
++ kubectl apply -f service.yaml
+service/trend-service unchanged
++ echo Kubernetes resources applied successfully
+Kubernetes resources applied successfully
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Wait for Deployment)
+[Pipeline] sh
++ echo ==========================================
+==========================================
++ echo Waiting for Deployment
+Waiting for Deployment
++ echo ==========================================
+==========================================
++ kubectl rollout status deployment/trend-app --timeout=180s
+Waiting for deployment "trend-app" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "trend-app" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "trend-app" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "trend-app" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "trend-app" rollout to finish: 1 old replicas are pending termination...
+deployment "trend-app" successfully rolled out
++ echo Deployment completed successfully
+Deployment completed successfully
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Get Application URL)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ echo ==========================================
+==========================================
++ echo Pods
+Pods
++ echo ==========================================
+==========================================
++ kubectl get pods -o wide
+NAME                        READY   STATUS    RESTARTS   AGE   IP           NODE                                        NOMINATED NODE   READINESS GATES
+trend-app-97d4dfb6b-ltwb4   1/1     Running   0          34s   10.0.2.185   ip-10-0-2-230.ap-south-1.compute.internal   <none>           <none>
+trend-app-97d4dfb6b-tn569   1/1     Running   0          19s   10.0.1.100   ip-10-0-1-201.ap-south-1.compute.internal   <none>           <none>
++ echo 
+
++ echo ==========================================
+==========================================
++ echo Service
+Service
++ echo ==========================================
+==========================================
++ kubectl get service trend-service
+NAME            TYPE           CLUSTER-IP      EXTERNAL-IP                                                                PORT(S)          AGE
+trend-service   LoadBalancer   172.20.55.241   a967db187f1534cffbf3930913cecd3f-1469936687.ap-south-1.elb.amazonaws.com   3000:32258/TCP   47m
+[Pipeline] sh
++ kubectl get service trend-service -o jsonpath=http://{.status.loadBalancer.ingress[0].hostname}:3000
+[Pipeline] echo
+Application URL: http://a967db187f1534cffbf3930913cecd3f-1469936687.ap-south-1.elb.amazonaws.com:3000
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Install Monitoring)
+[Pipeline] sh
++ echo ==========================================
+==========================================
++ echo Installing Prometheus + Grafana
+Installing Prometheus + Grafana
++ echo ==========================================
+==========================================
++ echo Adding Prometheus Community Helm repository...
+Adding Prometheus Community Helm repository...
++ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+"prometheus-community" has been added to your repositories
++ helm repo update
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "prometheus-community" chart repository
+Update Complete. ⎈Happy Helming!⎈
++ echo Installing/Upgrading kube-prometheus-stack...
+Installing/Upgrading kube-prometheus-stack...
++ helm upgrade --install monitoring prometheus-community/kube-prometheus-stack --namespace monitoring --create-namespace -f monitoring-values.yaml --wait --timeout 10m
+Release "monitoring" has been upgraded. Happy Helming!
+NAME: monitoring
+LAST DEPLOYED: Sun Sep 27 08:38:45 2026
+NAMESPACE: monitoring
+STATUS: deployed
+REVISION: 2
+TEST SUITE: None
+NOTES:
+kube-prometheus-stack has been installed. Check its status by running:
+  kubectl --namespace monitoring get pods -l "release=monitoring"
+
+Get Grafana 'admin' user password by running:
+
+  kubectl --namespace monitoring get secrets monitoring-grafana -o jsonpath="{.data.admin-password}" | base64 -d ; echo
+
+Access Grafana local instance:
+
+  export POD_NAME=$(kubectl --namespace monitoring get pod -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=monitoring" -oname)
+  kubectl --namespace monitoring port-forward $POD_NAME 3000
+
+Get your grafana admin user password by running:
+
+  kubectl get secret --namespace monitoring -l app.kubernetes.io/component=admin-secret -o jsonpath="{.items[0].data.admin-password}" | base64 --decode ; echo
+
+
+Visit https://github.com/prometheus-operator/kube-prometheus for instructions on how to create & configure Alertmanager and Prometheus instances using the Operator.
++ echo Monitoring installation completed.
+Monitoring installation completed.
++ echo 
+
++ echo Monitoring Pods:
+Monitoring Pods:
++ kubectl get pods -n monitoring
+NAME                                                     READY   STATUS    RESTARTS   AGE
+alertmanager-monitoring-kube-prometheus-alertmanager-0   2/2     Running   0          26m
+monitoring-grafana-8647f5db46-29rn2                      3/3     Running   0          27m
+monitoring-kube-prometheus-operator-57fd45fb7c-hsgnl     1/1     Running   0          27m
+monitoring-kube-state-metrics-77bbf99c5c-zlklw           1/1     Running   0          27m
+monitoring-prometheus-node-exporter-4dw7b                1/1     Running   0          27m
+monitoring-prometheus-node-exporter-cpvgv                1/1     Running   0          27m
+prometheus-monitoring-kube-prometheus-prometheus-0       2/2     Running   0          26m
++ echo 
+
++ echo Monitoring Services:
+Monitoring Services:
++ kubectl get svc -n monitoring
+NAME                                      TYPE           CLUSTER-IP       EXTERNAL-IP                                                               PORT(S)                      AGE
+alertmanager-operated                     ClusterIP      None             <none>                                                                    9093/TCP,9094/TCP,9094/UDP   26m
+monitoring-grafana                        LoadBalancer   172.20.124.193   a3950859fd5124754adf7f19a9a62a18-289527737.ap-south-1.elb.amazonaws.com   3000:31643/TCP               27m
+monitoring-kube-prometheus-alertmanager   ClusterIP      172.20.227.37    <none>                                                                    9093/TCP,8080/TCP            27m
+monitoring-kube-prometheus-operator       ClusterIP      172.20.35.75     <none>                                                                    443/TCP                      27m
+monitoring-kube-prometheus-prometheus     ClusterIP      172.20.18.112    <none>                                                                    9090/TCP,8080/TCP            27m
+monitoring-kube-state-metrics             ClusterIP      172.20.102.63    <none>                                                                    8080/TCP                     27m
+monitoring-prometheus-node-exporter       ClusterIP      172.20.23.59     <none>                                                                    9100/TCP                     27m
+prometheus-operated                       ClusterIP      None             <none>                                                                    9090/TCP                     26m
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Get Grafana URL)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+==========================================
+[Pipeline] echo
+Getting Grafana URL
+[Pipeline] echo
+==========================================
+[Pipeline] sh
++ kubectl get service monitoring-grafana -n monitoring -o jsonpath=http://{.status.loadBalancer.ingress[0].hostname}:3000
+[Pipeline] echo
+Grafana URL: http://a3950859fd5124754adf7f19a9a62a18-289527737.ap-south-1.elb.amazonaws.com:3000
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] sh
++ docker logout
+Removing login credentials for https://index.docker.io/v1/
+[Pipeline] echo
+Pipeline completed.
+[Pipeline] echo
+==========================================
+[Pipeline] echo
+Trend Application Deployed Successfully!
+[Pipeline] echo
+==========================================
+[Pipeline] echo
+Application URL: http://a967db187f1534cffbf3930913cecd3f-1469936687.ap-south-1.elb.amazonaws.com:3000
+[Pipeline] echo
+Grafana URL: http://a3950859fd5124754adf7f19a9a62a18-289527737.ap-south-1.elb.amazonaws.com:3000
+[Pipeline] emailext
+Sending email to: dineshappleoneplus@gmail.com
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+
+GitHub has been notified of this commit’s build result
+
+Finished: SUCCESS
